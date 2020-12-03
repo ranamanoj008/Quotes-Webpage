@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <div class="box">
+            <div class="top_box">
+            <div id="quot">quote</div>
+            <div id="auth">author</div>
+        </div>
+
+            <button id="btn">Next Quote</button>
+    </div>
+
+        <script>
+            
+            let realData = "";
+            const Rquote = document.getElementById('quot');
+            const Rauthor = document.getElementById('auth');
+            const newQutote = document.getElementById('btn');
+
+
+                 const getNewQuote = () =>{
+                let rnum = Math.floor(Math.random()*10);
+                
+                let  number = realData[rnum].author;
+                console.log(number);
+                if(number==null){
+                    Rauthor.innerText = `unknown`;
+                }else{
+                    Rauthor.innerText = `${realData[rnum].author}`;
+                }
+                Rquote.innerText = `${realData[rnum].text}`;            
+            
+            }
+
+            const getQutoes = async ()=>{
+
+                const api = 'http://type.fit/api/quotes';
+                try{
+                    let data = await fetch(api);
+                    realData = await data.json();
+       
+                    getNewQuote();
+
+                }catch(error){
+
+                }
+
+            }
+            getQutoes();
+            
+                newQutote.addEventListener('click',getQutoes);
+
+        </script>
+    </body>
+</html>
